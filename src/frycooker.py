@@ -36,6 +36,7 @@ cookbooks and applies them to computers.
 '''
 
 import argparse
+from collections import OrderedDict
 import json
 import os
 import shutil
@@ -146,7 +147,7 @@ def load_settings(filename, params):
     :rtype: dictionary
     :return: dictionary representation of settings
     '''
-    settings = json.load(open(filename))
+    settings = json.load(open(filename), object_pairs_hook=OrderedDict)
     settings["params"] = {}
     if params:
         for p in params:
@@ -170,7 +171,7 @@ def load_enviro(filename):
     :return: dictionary representation of environment
     '''
     try:
-        enviro = json.load(open(filename))
+        enviro = json.load(open(filename), object_pairs_hook=OrderedDict)
     except Exception:
         print 'Error reading environment file %s' % filename
         raise
