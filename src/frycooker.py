@@ -37,6 +37,7 @@ cookbooks and applies them to computers.
 
 import argparse
 from collections import OrderedDict
+import glob
 import json
 import os
 import shutil
@@ -179,10 +180,11 @@ def load_enviro(filename):
 
     for key in enviro:
         if 'imports' in enviro[key]:
-            for imp_file in enviro[key]['imports']:
-                imp_enviro = load_enviro(imp_file)
-                for imp_key in imp_enviro:
-                    enviro[key][imp_key] = imp_enviro[imp_key]
+            for imp_file_glob in enviro[key]['imports']:
+                for imp_file in glob.iglob(imp_file_glob):
+                    imp_enviro = load_enviro(imp_file)
+                    for imp_key in imp_enviro:
+                        enviro[key][imp_key] = imp_enviro[imp_key]
             del enviro[key]['imports']
 
     return enviro
