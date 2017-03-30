@@ -466,8 +466,12 @@ Example::
 
 This dictionary is created by processing the environment JSON files.
 The main file is called ``environment.json``, and it can have include
-directives that pull in additonal json files so that you can split up
-large environments into multiple files.
+directives (using the ``"imports"`` key) that pull in additional json
+files so that you can split up large environments into multiple
+files. The value of the ``"imports"`` is a array of the files that
+should be imported. The files are processed using the `glob
+<https://docs.python.org/2/library/glob.html>`_ library so wildcards
+like ``*`` and ``?`` are handled appropriately.
 
 environment.json::
 
