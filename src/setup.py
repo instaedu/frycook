@@ -28,11 +28,11 @@
 from distutils.core import setup
 
 setup(name='frycook',
-      version='0.3.9',
+      version='0.4.1',
       description='frycook system builder',
       author='Jay Farrimond',
       author_email='jay@farrimond.com',
-      url='http://github.com/jfarrimo/frycook',
+      url='http://github.com/instaedu/frycook',
       packages=['frycook'],
       scripts=['frycooker.py'],
       install_requires=['fabric', 'cuisine<0.7.6', 'mako'],

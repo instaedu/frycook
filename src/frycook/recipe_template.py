@@ -535,14 +535,14 @@ class Recipe(object):
         :param target_path: root path on remote server to copy git repo to
         '''
         rsync_command = ('rsync -qrlptz --delete --delete-excluded '
-                         '--exclude=.svn --exclude=.git')
+                         '--exclude=.svn --exclude=.git --rsync-path="sudo rsync"')
         tmp_path = os.path.join(self.settings["tmp_dir"],
                                 'push_git_repo/repo/')
         if not os.path.exists(tmp_path):
             local('git clone %s %s' % (git_url, tmp_path))
         else:
             local('cd %s && git pull' % tmp_path)
-        local('%s %s root@%s:%s' %
+        local('%s %s %s:%s' %
               (rsync_command, tmp_path, computer, target_path))
         cuisine.sudo('chown -R %s:%s %s' % (user, group, target_path))
         shutil.rmtree(tmp_path)
